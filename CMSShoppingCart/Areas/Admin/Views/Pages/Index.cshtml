@@ -1,0 +1,53 @@
+﻿<!-- data available to work with -->
+@model IEnumerable<Page>
+
+@{
+    <!-- pass data from action method to a view or from view to view -->
+    <!-- store value "Index" in property Title - now availabe to other views -->
+    <!-- you can also pass data via View Bag -->
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <!-- use default controller and area for target (/Admin/Pages) -->
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <!-- Model [Display("Name  = Fruit")] -->
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Model -> atModel IEnumerable<Page> -->
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    <!--  atHtml.DisplayFor(modelItem => item.Slug) -->
+                    @item.Slug
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    @if (item.Slug != "home" ) 
+                    { 
+                        <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
