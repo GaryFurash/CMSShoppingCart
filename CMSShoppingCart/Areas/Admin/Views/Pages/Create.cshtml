@@ -36,4 +36,8 @@
 <!-- because its in this seciton it will get rendered in the _Layout (main) atRenderSection(...) -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+	    CKEDITOR.replace("Content");
+    </script>
 }
