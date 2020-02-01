@@ -43,8 +43,10 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             return View(page);
         }
 
-        // GET  /admin/pages/create/1
-        public IActionResult Create() => View();
+		#region Create definitions
+
+		// GET  /admin/pages/create
+		public IActionResult Create() => View();
 
         // POST  /admin/pages/create
         [HttpPost, ValidateAntiForgeryToken]
@@ -73,8 +75,11 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             return View(page);
         }
 
-        // GET  /admin/pages/edit/1
-        public async Task<IActionResult> Edit(int id)
+		#endregion
+
+		#region Edit definitions
+		// GET  /admin/pages/edit/1
+		public async Task<IActionResult> Edit(int id)
         {
             Page page = await context.Pages.FindAsync(id);
             if (page == null)
@@ -110,9 +115,10 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
 
             return View(page);
         }
+		#endregion
 
-        // GET  /admin/pages/delete/1
-        public async Task<IActionResult> Delete(int id)
+		// GET  /admin/pages/delete/1
+		public async Task<IActionResult> Delete(int id)
         {
             Page page = await context.Pages.FindAsync(id);
 
