@@ -14,10 +14,10 @@
     <!-- use default controller and area for target (/Admin/Pages) -->
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table sorting" id="pages">
     <thead>
         <!-- Model [Display("Name  = Fruit")] -->
-        <tr>
+        <tr class="home">
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -31,7 +31,8 @@
         <!-- Model -> atModel IEnumerable<Page> -->
         @foreach (var item in Model)
         {
-            <tr>
+            <!-- setting class to Slug along with seating header to home makes home page not sortable -->
+            <tr id="id_@item.Id" class="@item.Slug">
                 <td>
                     @item.Title
                 </td>
@@ -42,8 +43,8 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    @if (item.Slug != "home" ) 
-                    { 
+                    @if (item.Slug != "home")
+                    {
                         <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
                 </td>
@@ -51,3 +52,17 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+		$("table#pages tbody").sortable({
+			items: "tr:not(.home)",
+			placeholder: "ui-state-highlight",
+			update: function () {
+				let ids = $("table#pages tbody").sortable("serialize");
+				let url = "/admin/pages/reorder";
+				$.post(url, ids, function () { });
+			}
+		});
+    </script>
+}

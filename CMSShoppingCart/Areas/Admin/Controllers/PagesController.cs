@@ -130,6 +130,25 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST  /admin/pages/reorder
+        // .sortable from ckeditor.js returns an array of ids after a
+        // user has resorted the table (id[1], ...])
+        [HttpPost]
+        public async Task<IActionResult> Reorder(int[] id)
+        {
+            // start at 1 to ensure Home page isn't sorted
+            int count = 1;
 
+            foreach (var pageId in id)
+            {
+                Page page = await context.Pages.FindAsync(pageId);
+                page.Sorting = count;
+                await context.SaveChangesAsync();
+                count++;
+            }
+
+            // return status 200
+            return Ok();
+        }
     }
 }
