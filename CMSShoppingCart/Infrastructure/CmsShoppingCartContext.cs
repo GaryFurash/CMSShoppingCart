@@ -15,7 +15,9 @@ namespace CMSShoppingCart.Infrastructure
 
 		}
 
+		// each time you add a table add 
 		public DbSet<Page> Pages { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Product> Products { get; set; }
 	}
 }
