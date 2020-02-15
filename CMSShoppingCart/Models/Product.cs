@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CMSShoppingCart.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +21,9 @@ namespace CMSShoppingCart.Models
 		public decimal Price { get; set; }
 
 		[Display(Name = "Category")]
+		[Range(1, int.MaxValue, ErrorMessage = "You must select a category")]
 		public int CategoryId { get; set; }
+
 		public string Image { get; set; }
 
 		// set CategoryId as Foriegn Key
@@ -28,6 +31,7 @@ namespace CMSShoppingCart.Models
 		public virtual Category Category { get; set; }
 
 		[NotMapped]
+		[FileExtension]
 		public IFormFile ImageUpload { get; set; }
 	}
 }

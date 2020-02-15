@@ -31,6 +31,7 @@
 				<select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
 					<option value="0">Choose a Category</option>
 				</select>
+				<span asp-validation-for="CategoryId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Image" class="control-label">Product Image</label>
