@@ -19,10 +19,10 @@
 				@Html.DisplayNameFor(model => model.Price)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Image)
+				@Html.DisplayNameFor(model => model.Category)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Category)
+				@Html.DisplayNameFor(model => model.Image)
 			</th>
 			<th></th>
 		</tr>
@@ -38,10 +38,10 @@
 					@Html.DisplayFor(modelItem => item.Price)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Image)
+					@Html.DisplayFor(modelItem => item.Category.Name)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Category.Name)
+					<img src="~/media/products/@item.Image" width="100" alt="" />
 				</td>
 				<td>
 					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -52,3 +52,7 @@
 		}
 	</tbody>
 </table>
+
+<div class="d-flex w-100 justify-content-center">
+	<pagination page-count="@ViewBag.TotalPages" page-target="/admin/products" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
+</div>
