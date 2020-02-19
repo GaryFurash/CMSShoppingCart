@@ -51,8 +51,15 @@ namespace CMSShoppingCart
 
 			app.UseAuthorization();
 
+			// routes are specified from MOST to LEAST specific, and checked in order,
+			// falling through to the next if not found
 			app.UseEndpoints(endpoints =>
 			{
+				endpoints.MapControllerRoute(
+					"pages", "{slug?}",
+					defaults: new { controller = "Pages", action = "Page" }
+				);
+
 				endpoints.MapControllerRoute(
 					name: "areas",
 					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
