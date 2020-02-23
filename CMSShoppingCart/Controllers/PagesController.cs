@@ -18,7 +18,17 @@ namespace CMSShoppingCart.Controllers
             this.context = context;
         }
 
-        // GET / or / slug (depends on custom route0=(
+        // GET / or / slug (depends on custom route)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// Depends on Custom route in setup
+        ///     endpoints.MapControllerRoute(
+		///			"pages", "{slug?}",
+		///			defaults: new { controller = "Pages", action = "Page" }
+		///		);
+        /// <param name="slug"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Page(string slug)
         {
             if (slug == null)
