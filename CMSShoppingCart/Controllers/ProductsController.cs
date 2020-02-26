@@ -56,6 +56,7 @@ namespace CMSShoppingCart.Controllers
 																	.Where(x => x.CategoryId == category.Id)
 																	.Count() / pageSize);
 			ViewBag.CategoryName = category.Name;
+			ViewBag.CategorySlug = category.Slug;
 
 			// Include() loads related data (Category)
 			return View(await products.ToListAsync());
