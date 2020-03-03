@@ -10,12 +10,14 @@ namespace CMSShoppingCart.Controllers
 {
     public class CartController : Controller
     {
-        private readonly CmsShoppingCartContext cmsShoppingCartContext;
+        private readonly CmsShoppingCartContext context;
 
         public CartController(CmsShoppingCartContext cmsShoppingCartContext)
         {
-            this.cmsShoppingCartContext = cmsShoppingCartContext;
+            context = cmsShoppingCartContext;
         }
+
+        // GET /cart
         public IActionResult Index()
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
@@ -28,6 +30,30 @@ namespace CMSShoppingCart.Controllers
             };
 
             return View(cartVM);
+        }        
+        
+        // GET /cart/add/5
+        public async Task<IActionResult> Add(int id)
+        {
+            Product product = await context.Products.FindAsync(id);
+
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+
+            if (cartItem == null)
+            {
+                cart.Add(new CartItem(product));
+            }
+            else
+            {
+                cartItem.Quantity += 1;
+            }
+
+            // use SetInt(32) or SetString for simpler types
+            HttpContext.Session.SetJson("Cart", cart);
+
+            return RedirectToAction("Index");
         }
     }
 }
