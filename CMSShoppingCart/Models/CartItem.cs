@@ -21,7 +21,7 @@ namespace CMSShoppingCart.Models
 		public CartItem(Product product)
 		{
 			ProductId = product.Id;
-			ProductName = ProductName;
+			ProductName = product.Name;
 			Price = product.Price;
 			Quantity = 1;
 			Image = product.Image;
