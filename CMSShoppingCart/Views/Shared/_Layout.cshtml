@@ -29,6 +29,11 @@
 			<div class="row">
 				<div class="col-3">
 					@await Component.InvokeAsync("Categories")
+
+					<!-- identified as a class (smallcart) so it can be updated as an ajax target -->
+					<div class="smallcart bg-success mt-3 p-3 text-white">
+						@await Component.InvokeAsync("SmallCart")
+					</div>
 				</div>
 				<div class="col">
 					@RenderBody()
