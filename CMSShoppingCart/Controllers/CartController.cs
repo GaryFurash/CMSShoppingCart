@@ -53,7 +53,13 @@ namespace CMSShoppingCart.Controllers
 			// use SetInt(32) or SetString for simpler types
 			HttpContext.Session.SetJson("Cart", cart);
 
-			return RedirectToAction("Index");
+			// if NOT called via an ajax request
+			if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+				return RedirectToAction("Index");
+
+			// otherwise return the small cart view component
+			return ViewComponent("SmallCart");
+
 		}
 
 		// GET /cart/decrease/5
@@ -114,7 +120,12 @@ namespace CMSShoppingCart.Controllers
 		{
 			HttpContext.Session.Remove("Cart");
 
-			return RedirectToAction("Index");
+			//return RedirectToAction("Page", "Pages");
+			//return Redirect("/");
+			if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+				return Redirect(Request.Headers["Referer"].ToString());
+
+			return Ok();
 		}
 	}
 }
