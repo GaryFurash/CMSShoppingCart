@@ -120,7 +120,7 @@ namespace CMSShoppingCart.Controllers
 		{
 			HttpContext.Session.Remove("Cart");
 
-			//return RedirectToAction("Page", "Pages");
+			//return RedirectToAction("Page", "Pages"); // redirect to a different controller & action
 			//return Redirect("/");
 			if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
 				return Redirect(Request.Headers["Referer"].ToString());
