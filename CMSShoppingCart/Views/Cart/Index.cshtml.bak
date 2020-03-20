@@ -9,7 +9,7 @@
 	<h1>Cart Overview</h1>
 
 	<div class="cartWrapper">
-        <div class="cartbg d-none">
+		<div class="cartbg">
 			<h3 class="text-center">Redirecting you to paypal...</h3>
 			<img src="~/images/ajax-loader.gif"/>
 		</div>
@@ -38,11 +38,11 @@
 
 			<tr>
 				<td class="text-right" colspan="4">Grand Total: @Model.GrandTotal.ToString("C2")</td>
-            </tr>
+			</tr>s
 			<tr>
 				<td class="text-right" colspan="4">
 					<a asp-action="Clear" class="btn btn-danger">Clear Cart</a>
-                    <a href="#" class="btn btn-primary checkout">Checkout</a>
+					<a href="#" class="btn btn-primary">Checkout</a>
 				</td>
 			</tr>
 		</table>
@@ -50,7 +50,7 @@
 }
 else
 {
-    <h3 class="display-4 text-center">Your cart is empty.</h3>
+	<h3 class="display-4 text-center">Your cart is empty</h3>
 }
 
 

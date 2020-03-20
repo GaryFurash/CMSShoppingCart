@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMSShoppingCart.Infrastructure;
 using CMSShoppingCart.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CMSShoppingCart.Controllers
 {
+	[Authorize]
 	public class ProductsController : Controller
 	{
 		private readonly CmsShoppingCartContext context;

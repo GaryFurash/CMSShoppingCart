@@ -1,4 +1,5 @@
 ﻿using CMSShoppingCart.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CMSShoppingCart.Infrastructure
 {
-	public class CmsShoppingCartContext : DbContext
+	public class CmsShoppingCartContext : IdentityDbContext<AppUser>
 	{
 		public CmsShoppingCartContext(DbContextOptions<CmsShoppingCartContext> options) 
 			:base(options)
@@ -19,5 +20,7 @@ namespace CMSShoppingCart.Infrastructure
 		public DbSet<Page> Pages { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Product> Products { get; set; }
+		public DbSet<CMSShoppingCart.Models.User> User { get; set; }
+		public DbSet<CMSShoppingCart.Models.Login> Login { get; set; }
 	}
 }

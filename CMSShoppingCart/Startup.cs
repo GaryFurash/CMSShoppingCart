@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CMSShoppingCart.Infrastructure;
+using CMSShoppingCart.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +38,17 @@ namespace CMSShoppingCart
 
 			services.AddDbContext<CmsShoppingCartContext>(options => options.UseSqlServer(
 				Configuration.GetConnectionString("CmsShoppingCartContext")));
+
+			services.AddIdentity<AppUser, IdentityRole>(options =>
+					{
+						options.Password.RequiredLength = 4;
+						options.Password.RequireNonAlphanumeric = false;
+						options.Password.RequireLowercase = false;
+						options.Password.RequireUppercase = false;
+						options.Password.RequireDigit = false;
+					})
+					.AddEntityFrameworkStores<CmsShoppingCartContext>()
+					.AddDefaultTokenProviders();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +71,7 @@ namespace CMSShoppingCart
 
 			app.UseSession();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			// routes are specified from MOST to LEAST specific, and checked in order,
@@ -65,13 +79,13 @@ namespace CMSShoppingCart
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
-					"pages", 
+					"pages",
 					"{slug?}",
 					defaults: new { controller = "Pages", action = "Page" }
 				);
 
 				endpoints.MapControllerRoute(
-					"products", 
+					"products",
 					"products/{categorySlug}",
 					defaults: new { controller = "Products", action = "ProductsByCategory" }
 				);
