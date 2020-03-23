@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CMSShoppingCart.Infrastructure
 {
+    // create a custom HTML element
     public class PaginationTagHelper : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
