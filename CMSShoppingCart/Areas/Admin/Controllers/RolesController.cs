@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CMSShoppingCart.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMSShoppingCart.Areas.Admin.Controllers
 {
+	[Authorize(Roles = "admin")]
 	[Area("Admin")]
 	public class RolesController : Controller
 	{
